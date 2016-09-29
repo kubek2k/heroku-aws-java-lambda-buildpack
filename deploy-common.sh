@@ -24,8 +24,12 @@ function retrieveProperties() {
 
 function deployLambda() {
     local LAMBDA_FILE="$1"
+    local ARN_ARR=(`echo ${_LAMBDA_FUNCTION_ARN}`);
     echo "Deploying lambda from file ${LAMBDA_FILE}"
-    AWS_ACCESS_KEY_ID="${_AWS_ACCESS_KEY_ID}" AWS_SECRET_ACCESS_KEY="${_AWS_SECRET_ACCESS_KEY}" AWS_DEFAULT_REGION="${_AWS_DEFAULT_REGION}" ${DIR}/../.heroku/python/bin/aws lambda update-function-code --function-name "${_LAMBDA_FUNCTION_ARN}" --zip-file "fileb://${LAMBDA_FILE}"
+    for ARN in ${ARN_ARR[@]}; do
+      echo "Deploying lambda to ${ARN}"
+      AWS_ACCESS_KEY_ID="${_AWS_ACCESS_KEY_ID}" AWS_SECRET_ACCESS_KEY="${_AWS_SECRET_ACCESS_KEY}" AWS_DEFAULT_REGION="${_AWS_DEFAULT_REGION}" ${DIR}/../.heroku/python/bin/aws lambda update-function-code --function-name "${ARN}" --zip-file "fileb://${LAMBDA_FILE}"
+    done
     assertOk "Deploying lambda"
     return $?
 }
