@@ -29,7 +29,7 @@ $ heroku buildpacks:set https://github.com/kubek2k/heroku-aws-lambda-buildpack
 
 ### Set env variables
 
-  * `_LAMBDA_FUNCTION_ARN` - the ARN of lambda that is going to be deployed to
+  * `_LAMBDA_FUNCTION_ARN` - the ARN of lambda that is going to be deployed to. If multiple ARNs, separate with space
   * `_AWS_ACCESS_KEY_ID` - AWS access key id used for deployment
   * `_AWS_SECRET_ACCESS_KEY` - AWS secret key used for deployment
   * `_AWS_DEFAULT_REGION` - AWS region to be used
